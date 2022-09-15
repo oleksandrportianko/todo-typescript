@@ -1,10 +1,14 @@
-import {  } from './main.styles'
+import { MainPageContainer, TodosBlock, TodosHeader } from './main.styles'
 
 const MainPage = () => {
     return (
-        <div>
-            
-        </div>
+        <MainPageContainer>
+            <TodosBlock>
+                <TodosHeader>
+                    Hello
+                </TodosHeader>
+            </TodosBlock>
+        </MainPageContainer>
     )
 }
 
