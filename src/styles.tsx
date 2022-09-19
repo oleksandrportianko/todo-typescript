@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 
-export const lightPurpleColor = '#14213D' 
-export const darkPurpleColor = '#0b162c'
-export const whiteTextColor = '#E5E5E5'
-export const orangeColor = '#FCA311'
+export const appBackground = '#396fe4' 
+export const todosBackground = '#ffffff'
+export const textColor = '#435863'
+export const lightColor = '#a1b6ba' 
+export const underlineColor = '#f5f1eb'
+export const redColor = '#da3636'
 
 export const AppWrapper = styled.div`
     width: 100%;

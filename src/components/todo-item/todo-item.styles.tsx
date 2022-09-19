@@ -1,16 +1,18 @@
 import styled from 'styled-components'
 
-import { whiteTextColor } from '../../styles'
+import { textColor } from '../../styles'
 
 export const TodoContainer = styled.section`
-    padding: 15px 0;
+    padding: 20px 10px 0 20px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 `
 
 export const TextTodo = styled.div`
-    color: ${whiteTextColor};
+    color: ${textColor};
     font-size: 1.1rem;
+    margin-right: 20px;
 
     &.done {
         text-decoration: line-through;
@@ -22,36 +24,36 @@ export const BlockImagesTodo = styled.div`
 `
 
 export const DeleteImageTodo = styled.img`
-    filter: invert(99%) sepia(1%) saturate(5827%) hue-rotate(267deg) brightness(127%) contrast(80%);
+    filter: invert(31%) sepia(20%) saturate(570%) hue-rotate(156deg) brightness(94%) contrast(86%);
     width: 20px;
     height: 20px;
     cursor: pointer;
 
     &:hover {
-        filter: invert(87%) sepia(15%) saturate(204%) hue-rotate(210deg) brightness(104%) contrast(98%);
+        filter: invert(29%) sepia(4%) saturate(2365%) hue-rotate(159deg) brightness(92%) contrast(93%);
     }
 `
 
 export const DoneImageTodo = styled.img`
-    filter: invert(99%) sepia(1%) saturate(5827%) hue-rotate(267deg) brightness(127%) contrast(80%);
+    filter: invert(31%) sepia(20%) saturate(570%) hue-rotate(156deg) brightness(94%) contrast(86%);
     width: 20px;
     height: 20px;
     cursor: pointer;
     margin-right: 5px;
     
     &:hover {
-        filter: invert(87%) sepia(15%) saturate(204%) hue-rotate(210deg) brightness(104%) contrast(98%);
+        filter: invert(29%) sepia(4%) saturate(2365%) hue-rotate(159deg) brightness(92%) contrast(93%);
     }
 `
 
 export const ResetImageTodo = styled.img`
-    filter: invert(99%) sepia(1%) saturate(5827%) hue-rotate(267deg) brightness(127%) contrast(80%);
+    filter: invert(31%) sepia(20%) saturate(570%) hue-rotate(156deg) brightness(94%) contrast(86%);
     width: 20px;
     height: 20px;
     cursor: pointer;
     margin-right: 5px;
     
     &:hover {
-        filter: invert(87%) sepia(15%) saturate(204%) hue-rotate(210deg) brightness(104%) contrast(98%);
+        filter: invert(29%) sepia(4%) saturate(2365%) hue-rotate(159deg) brightness(92%) contrast(93%);
     }
 `

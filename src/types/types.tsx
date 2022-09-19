@@ -9,3 +9,9 @@ export type TodoProps = {
     deleteTodo: (id: string) => void,
     updateStatus: (id: string, status: string) => void,
 }
+
+export type DateObject = {
+    day: string,
+    month: string,
+    weekDay: string,
+}

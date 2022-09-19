@@ -1,16 +1,26 @@
 import { useState, useEffect, ChangeEvent } from 'react' 
 import { v4 as uuidv4 } from 'uuid';
 
-import { Todo } from '../../types/types';
+import { Todo, DateObject } from '../../types/types';
 
 import TodoItem from '../../components/todo-item/todo-item.component'
 
-import { ButtonCreateTodo, CreateTodoBlock, DateBlock, MainPageContainer, TodoInputCreate, TodosBlock, TodosBody, TodosHeader } from './main.styles'
+import plusSvg from '../../assets/plus.svg'
+
+import { ButtonCreateTodoImage, ClearAllButton, CountOfTasks, CreateTodoBlock, DateBlock, EmptyTasksText, HeaderAdditionalInfo, 
+    HeaderDateBlock, MainPageContainer, MonthBlock, TodayDateBlock, TodoInputCreate, TodosBlock, TodosBody, TodosHeader, TodosListWrapper, WeekDayBlock } from './main.styles'
 
 const MainPage = () => {
-    const [currentDate, setCurrentDate] = useState('')
+    const [currentDate, setCurrentDate] = useState<DateObject>({day: '', month: '', weekDay: ''})
     const [inputTodo, setInputTodo] = useState('')
     const [todoList, setTodoList] = useState<Todo[]>([])
+
+    const clearAllTodos = (): void => {
+        let localStorageTodos: Todo[] = []
+
+        localStorage.setItem('todos', JSON.stringify(localStorageTodos))
+        setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
+    }
 
     const deleteTodo = (id: string): void => {
         let localStorageTodos: Todo[] = []
@@ -34,8 +44,6 @@ const MainPage = () => {
             localStorageTodos = [...updatedTodos]
         } catch (e) {}
 
-        console.log(localStorageTodos)
-
         localStorage.setItem('todos', JSON.stringify(localStorageTodos))
         setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
     }
@@ -45,36 +53,44 @@ const MainPage = () => {
     } 
 
     const createTodoHandler = (): void => {
-        let localStorageTodos: Todo[] = []
-
-        try {
-            const currentTodos = JSON.parse(localStorage.getItem('todos') || "")
-            localStorageTodos = [...currentTodos]
-        } catch (e) {}
-
-        const todoObject = {
-            id: uuidv4(),
-            text: inputTodo,
-            status: 'active',
+        if (inputTodo.length > 0) {
+            let localStorageTodos: Todo[] = []
+    
+            try {
+                const currentTodos = JSON.parse(localStorage.getItem('todos') || "")
+                localStorageTodos = [...currentTodos]
+            } catch (e) {}
+    
+            const todoObject = {
+                id: uuidv4(),
+                text: inputTodo,
+                status: 'active',
+            }
+    
+            const newTodosList = [...localStorageTodos, todoObject]
+            localStorage.setItem('todos', JSON.stringify(newTodosList))
+    
+            setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
+            setInputTodo('')
         }
-
-        const newTodosList = [...localStorageTodos, todoObject]
-        localStorage.setItem('todos', JSON.stringify(newTodosList))
-
-        setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
-        setInputTodo('')
     }
  
     useEffect(() => {
         let localStorageTodos: Todo[] = []
-        let today = new Date().toLocaleDateString()
+        const day = new Date().toLocaleDateString().split('/')[1]
+        const month = new Date().toLocaleString('default', { month: 'long' })
+        const weekDay = new Date().toLocaleString('en-us', {  weekday: 'long' })
         
         try {
             const currentTodos = JSON.parse(localStorage.getItem('todos') || "")
             localStorageTodos = [...currentTodos]
         } catch (e) {}
         
-        setCurrentDate(today)
+        setCurrentDate({
+            day: day,
+            month: month,
+            weekDay: weekDay,
+        })
         setTodoList(localStorageTodos)
     }, [])
 
@@ -82,18 +98,38 @@ const MainPage = () => {
         <MainPageContainer>
             <TodosBlock>
                 <TodosHeader>
-                    Current Date <DateBlock>{currentDate}</DateBlock>
+                    <HeaderDateBlock>
+                        <TodayDateBlock>
+                            <WeekDayBlock>{currentDate.weekDay},</WeekDayBlock>
+                            <DateBlock>{currentDate.day}th</DateBlock>
+                        </TodayDateBlock>
+                        <MonthBlock>{currentDate.month}</MonthBlock>
+                    </HeaderDateBlock>
+                    <HeaderAdditionalInfo>
+                        <CountOfTasks>{(todoList.length === 0 || todoList.length === 1) ? `${todoList.length} task` : `${todoList.length} tasks`}</CountOfTasks>
+                        <ClearAllButton onClick={clearAllTodos}>Clear list</ClearAllButton>
+                    </HeaderAdditionalInfo>
                 </TodosHeader>
                 <TodosBody>
                     <CreateTodoBlock>
-                        <TodoInputCreate type='text' value={inputTodo} onChange={todoInputHandler} />
-                        <ButtonCreateTodo onClick={createTodoHandler}>Create</ButtonCreateTodo>
+                        <ButtonCreateTodoImage src={plusSvg} onClick={createTodoHandler} />
+                        <TodoInputCreate placeholder='Type your task' type='text' value={inputTodo} onChange={todoInputHandler} />
                     </CreateTodoBlock>
-                    {
-                        todoList.slice().reverse().map((todo: Todo) => (
-                            <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} updateStatus={updateStatus} />
-                        ))
-                    }
+                    <TodosListWrapper>
+                        {
+                            todoList.length > 0 ?
+                            <>
+                                {
+                                    todoList.slice().reverse().map((todo: Todo) => (
+                                        <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} updateStatus={updateStatus} />
+                                    ))
+                                }
+                            </> :
+                            <EmptyTasksText>
+                                You don`t have tasks yet!
+                            </EmptyTasksText>
+                        }
+                    </TodosListWrapper>
                 </TodosBody>
             </TodosBlock>
         </MainPageContainer>

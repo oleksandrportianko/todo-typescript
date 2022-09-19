@@ -27,8 +27,8 @@ const TodoItem = (props: TodoProps) => {
                 {text}
             </TextTodo>
             <BlockImagesTodo>
-                <DoneImageTodo onClick={() => doneStatusHandler(id, 'done')} src={doneSvg} alt="" />
-                <ResetImageTodo onClick={() => resetTodoHandler(id, 'active')} src={resetSvg} alt="" />
+                { status === 'active' && <DoneImageTodo onClick={() => doneStatusHandler(id, 'done')} src={doneSvg} alt="" />}
+                { status === 'done' && <ResetImageTodo onClick={() => resetTodoHandler(id, 'active')} src={resetSvg} alt="" />}
                 <DeleteImageTodo onClick={() => deleteTodoHandler(id)} src={deleteSvg} alt="" />
             </BlockImagesTodo>
         </TodoContainer>
