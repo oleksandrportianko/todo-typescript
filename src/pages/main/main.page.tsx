@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from 'react' 
+import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react' 
 import { v4 as uuidv4 } from 'uuid';
 
 import { Todo, DateObject } from '../../types/types';
@@ -12,8 +12,33 @@ import { ButtonCreateTodoImage, ClearAllButton, CountOfTasks, CreateTodoBlock, D
 
 const MainPage = () => {
     const [currentDate, setCurrentDate] = useState<DateObject>({day: '', month: '', weekDay: ''})
+    const [editElement, setEditElement] = useState('')
     const [inputTodo, setInputTodo] = useState('')
     const [todoList, setTodoList] = useState<Todo[]>([])
+
+    const handleKeyDown = (event: KeyboardEvent<HTMLImageElement>): void => {
+        if (event.key === 'Enter') {
+            createTodoHandler()
+        }
+    }
+
+    const saveEditedElement = (id: string, text: string): void => {
+        let localStorageTodos: Todo[] = []
+
+        try {
+            const currentTodos = JSON.parse(localStorage.getItem('todos') || "")
+            const newTodos = currentTodos.map((todo: Todo) => todo.id === id ? {...todo, text} : todo)
+            localStorageTodos = [...newTodos]
+        } catch (e) {}
+
+        localStorage.setItem('todos', JSON.stringify(localStorageTodos))
+        setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
+        setEditElement('')
+    }  
+
+    const setEditElementHandler = (id: string): void => {
+        setEditElement(id)
+    }
 
     const clearAllTodos = (): void => {
         let localStorageTodos: Todo[] = []
@@ -111,7 +136,7 @@ const MainPage = () => {
                     </HeaderAdditionalInfo>
                 </TodosHeader>
                 <TodosBody>
-                    <CreateTodoBlock>
+                    <CreateTodoBlock onKeyDown={handleKeyDown}>
                         <ButtonCreateTodoImage src={plusSvg} onClick={createTodoHandler} />
                         <TodoInputCreate placeholder='Type your task' type='text' value={inputTodo} onChange={todoInputHandler} />
                     </CreateTodoBlock>
@@ -121,7 +146,7 @@ const MainPage = () => {
                             <>
                                 {
                                     todoList.slice().reverse().map((todo: Todo) => (
-                                        <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} updateStatus={updateStatus} />
+                                        <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} updateStatus={updateStatus} editElement={editElement} saveEditedElement={saveEditedElement} setEditElementHandler={setEditElementHandler} />
                                     ))
                                 }
                             </> :
