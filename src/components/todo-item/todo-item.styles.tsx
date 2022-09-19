@@ -32,10 +32,10 @@ export const DeleteImageTodo = styled.img`
 
 export const DoneImageTodo = styled.img`
     filter: invert(31%) sepia(20%) saturate(570%) hue-rotate(156deg) brightness(94%) contrast(86%);
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     cursor: pointer;
-    margin-right: 5px;
+    margin-right: 10px;
     
     &:hover {
         filter: invert(29%) sepia(4%) saturate(2365%) hue-rotate(159deg) brightness(92%) contrast(93%);
@@ -47,7 +47,7 @@ export const ResetImageTodo = styled.img`
     width: 20px;
     height: 20px;
     cursor: pointer;
-    margin-right: 5px;
+    margin-right: 10px;
     
     &:hover {
         filter: invert(29%) sepia(4%) saturate(2365%) hue-rotate(159deg) brightness(92%) contrast(93%);
@@ -59,6 +59,7 @@ export const EditImageTodo = styled.img`
     width: 20px;
     height: 20px;
     cursor: pointer;
+    margin-right: 5px;
     
     &:hover {
         filter: invert(29%) sepia(4%) saturate(2365%) hue-rotate(159deg) brightness(92%) contrast(93%);
