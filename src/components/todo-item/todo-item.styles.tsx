@@ -32,8 +32,8 @@ export const DeleteImageTodo = styled.img`
 
 export const DoneImageTodo = styled.img`
     filter: invert(31%) sepia(20%) saturate(570%) hue-rotate(156deg) brightness(94%) contrast(86%);
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
     margin-right: 10px;
     
@@ -47,7 +47,7 @@ export const ResetImageTodo = styled.img`
     width: 20px;
     height: 20px;
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 7px;
     
     &:hover {
         filter: invert(29%) sepia(4%) saturate(2365%) hue-rotate(159deg) brightness(92%) contrast(93%);

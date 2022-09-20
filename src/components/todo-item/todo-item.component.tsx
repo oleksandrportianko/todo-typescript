@@ -46,10 +46,14 @@ const TodoItem = (props: TodoProps) => {
                 }
             </TextTodoWrapper>
             <BlockImagesTodo>
-                { status === 'active' && <DoneImageTodo onClick={() => doneStatusHandler(id, 'done')} src={doneSvg} alt="" />}
+                { status === 'active' && editElement !== id && 
+                    <>
+                        <DoneImageTodo onClick={() => doneStatusHandler(id, 'done')} src={doneSvg} alt="" />
+                        <EditImageTodo onClick={() => setEditElementHandler(id)} src={editSvg} alt="" />
+                    </>
+                }
                 { status === 'done' && <ResetImageTodo onClick={() => resetTodoHandler(id, 'active')} src={resetSvg} alt="" />}
-                { editElement === id && <EditImageTodo onClick={() => saveEditedElement(id, editableText)} src={doneEditSvg} alt="" />}
-                { editElement !== id && <EditImageTodo onClick={() => setEditElementHandler(id)} src={editSvg} alt="" />} 
+                { editElement === id && <EditImageTodo onClick={() => saveEditedElement(id, editableText)} src={doneEditSvg} alt="" /> } 
                 <DeleteImageTodo onClick={() => deleteTodoHandler(id)} src={deleteSvg} alt="" />
             </BlockImagesTodo>
         </TodoContainer>
