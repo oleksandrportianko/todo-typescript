@@ -17,6 +17,8 @@ export const TextTodoWrapper = styled.div`
 export const BlockImagesTodo = styled.div`
     display: flex;
     align-items: center;
+    justify-content: end;
+    width: 80px;
 `
 
 export const DeleteImageTodo = styled.img`
