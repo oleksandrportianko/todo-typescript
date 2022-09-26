@@ -4,7 +4,8 @@ import { Routes, Route } from 'react-router-dom'
 
 import MainPage from './pages/main/main.page'
 
-import { checkUserAuthentication } from './utils/firebase/firebase'
+import { getCurrentUser } from './utils/firebase/firebase'
+import { User, FirebaseUser } from './types/types'
 
 import { setUserData } from './redux/slices/users.slice'
 
@@ -14,11 +15,12 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const getCurrentUser = async () => {
-      const res = checkUserAuthentication()
-      console.log(res)
+    const checkForCurrentUser = async () => {
+      const { uid, displayName, email } = await getCurrentUser() as FirebaseUser
+      dispatch(setUserData({ id: uid, displayName, email }))
     }
-    getCurrentUser()
+
+    checkForCurrentUser()
   }, [dispatch])
 
   return (

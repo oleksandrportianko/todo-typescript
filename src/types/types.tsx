@@ -24,3 +24,9 @@ export type User = {
     displayName: string,
     email: string,
 }
+
+export type FirebaseUser = {
+    uid: string,
+    displayName: string,
+    email: string,
+}

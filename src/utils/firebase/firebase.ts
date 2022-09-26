@@ -1,4 +1,3 @@
-
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { collection, addDoc, getFirestore } from 'firebase/firestore'
@@ -19,13 +18,20 @@ const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
 
 
-export const checkUserAuthentication = (callback: () => void) => onAuthStateChanged(auth, callback)
+export const onAuthStateChangedListener = async (callback: () => void) => onAuthStateChanged(auth, callback)
 
-export const handleUserIsAuthenticated = () => {
-    const user = checkUserAuthentication((userAuth) => {
-        console.log(userAuth)
-    })
+export const getCurrentUser = () => {
+   return new Promise((resolve, reject) => {
+      const unsubscribe = onAuthStateChanged(auth, (userAuth) => {
+         unsubscribe()
+         console.log("User", userAuth)
+         resolve(userAuth)
+      },
+         reject
+      )
+   })
 }
+    
 
 export const googleSignInWithPopup = async () => {
     signInWithPopup(auth, provider).then(async (result) => {
