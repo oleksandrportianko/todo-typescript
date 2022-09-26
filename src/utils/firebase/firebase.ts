@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { collection, addDoc, getFirestore } from 'firebase/firestore'
-import { User } from '../../types/types'
 
 const firebaseConfig = {
     apiKey: "AIzaSyBnCKjv9YDRc_XKPc6lxdhFkZJ3Uxq18Ak",
@@ -24,7 +23,6 @@ export const getCurrentUser = () => {
    return new Promise((resolve, reject) => {
       const unsubscribe = onAuthStateChanged(auth, (userAuth) => {
          unsubscribe()
-         console.log("User", userAuth)
          resolve(userAuth)
       },
          reject
@@ -37,16 +35,15 @@ export const googleSignInWithPopup = async () => {
     signInWithPopup(auth, provider).then(async (result) => {
         const user = result.user;
 
-
-        // try {
-        //     const docRef = await addDoc(collection(db, "users"), {
-        //         id: user.uid,
-        //         displayname: user.displayName,
-        //         email: user.email
-        //     });
-        // } catch (error) {
-        //     console.log("Error adding document: ", error);
-        // }
+        try {
+            const docRef = await addDoc(collection(db, "users"), {
+                id: user.uid,
+                displayname: user.displayName,
+                email: user.email
+            });
+        } catch (error) {
+            console.log("Error adding document: ", error);
+        }
     }).catch((error) => {
         console.log(error.message)
     });

@@ -5,9 +5,9 @@ import { Routes, Route } from 'react-router-dom'
 import MainPage from './pages/main/main.page'
 
 import { getCurrentUser } from './utils/firebase/firebase'
-import { User, FirebaseUser } from './types/types'
+import { FirebaseUser } from './types/types'
 
-import { setUserData } from './redux/slices/users.slice'
+import { setUserData } from './redux/slices/user.slice'
 
 import { AppWrapper } from './styles'
 
