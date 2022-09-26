@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
 import { User } from '../../types/types'
 
@@ -23,6 +23,10 @@ export const userSlice = createSlice({
         },
     },
 })
+
+export const selectUserData = createSelector(
+    [state => state.user], (user) => user.userData
+)
 
 export const { setUserData } = userSlice.actions
 
