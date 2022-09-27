@@ -1,8 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
-import { collection, addDoc, getDoc, doc, getFirestore, setDoc } from 'firebase/firestore'
-import { useAppDispatch } from "../../redux/hooks";
-import { setUserData } from "../../redux/slices/user.slice";
+import { getDoc, doc, getFirestore, setDoc } from 'firebase/firestore'
 
 import { FirebaseUser } from './../../types/types';
 

@@ -10,6 +10,9 @@ import { setUserData } from '../../redux/slices/user.slice'
 const GoogleLogin = () => {
     const dispatch = useDispatch()
 
+    // Fucntion googleLoginHandler used for handle google sign in, after recieve data
+    // we set userData to redux, and if user is not saved to docs into firebase we will
+    // create a new user 
     const googleLoginHandler = async () => {
         const { user: { uid, displayName, email } } = await googleSignInWithPopup()
         if (displayName && email) {

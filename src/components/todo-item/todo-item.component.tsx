@@ -14,18 +14,22 @@ const TodoItem = (props: TodoProps) => {
     const { todo: { id, text, status }, deleteTodo, updateStatus, editElement, setEditElementHandler, saveEditedElement } = props;
     const [editableText, setEditableText] = useState(text)
 
+    // Set to useState current editable value
     const editTextHandler = (event: ChangeEvent<HTMLInputElement>): void => {
         setEditableText(event.currentTarget.value)
     }
 
+    // Function for delete todo
     const deleteTodoHandler = (id: string): void => {
         deleteTodo(id)
     }
 
+    // Update status for todo
     const doneStatusHandler = (id: string, status: string) => {
         updateStatus(id, status)
     }
 
+    // Reset todo status
     const resetTodoHandler = (id: string, status: string) => {
         updateStatus(id, status)
     }

@@ -17,12 +17,14 @@ const MainPage = () => {
     const [inputTodo, setInputTodo] = useState('')
     const [todoList, setTodoList] = useState<Todo[]>([])
 
+    // handle create todo after click on Enter
     const handleKeyDown = (event: KeyboardEvent<HTMLImageElement>): void => {
         if (event.key === 'Enter') {
             createTodoHandler()
         }
     }
 
+    // Function saved updated todo into localStorage
     const saveEditedElement = (id: string, text: string): void => {
         let localStorageTodos: Todo[] = []
 
@@ -37,10 +39,12 @@ const MainPage = () => {
         setEditElement('')
     }  
 
+    // Set id of editable element
     const setEditElementHandler = (id: string): void => {
         setEditElement(id)
     }
 
+    // Function used for remvoe all todos list
     const clearAllTodos = (): void => {
         let localStorageTodos: Todo[] = []
 
@@ -48,6 +52,7 @@ const MainPage = () => {
         setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
     }
 
+    // Function used for delete separate todo
     const deleteTodo = (id: string): void => {
         let localStorageTodos: Todo[] = []
 
@@ -61,6 +66,7 @@ const MainPage = () => {
         setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
     }
 
+    // Function used for update status of todo
     const updateStatus = (id: string, status: string): void => {
         let localStorageTodos: Todo[] = []
 
@@ -74,10 +80,12 @@ const MainPage = () => {
         setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
     }
  
+    // Handle input for new todos
     const todoInputHandler = (event: ChangeEvent<HTMLInputElement>): void => {
         setInputTodo(event.currentTarget.value)
     } 
 
+    // Create new todo function
     const createTodoHandler = (): void => {
         if (inputTodo.length > 0) {
             let localStorageTodos: Todo[] = []
@@ -101,6 +109,8 @@ const MainPage = () => {
         }
     }
  
+    // useEffect used for set data information at the beginning
+    // also set existing todos 
     useEffect(() => {
         let localStorageTodos: Todo[] = []
         const day = new Date().toLocaleDateString().split('/')[1]
