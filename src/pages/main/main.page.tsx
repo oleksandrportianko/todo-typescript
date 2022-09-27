@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { Todo, DateObject } from '../../types/types';
 
 import TodoItem from '../../components/todo-item/todo-item.component'
-import GoogleLogin from '../../components/google-login/google-login.component';
 
 import plusSvg from '../../assets/plus.svg'
 
@@ -123,7 +122,7 @@ const MainPage = () => {
 
     return (
         <MainPageContainer>
-            <GoogleLogin />
+            
             <TodosBlock>
                 <TodosHeader>
                     <HeaderDateBlock>
