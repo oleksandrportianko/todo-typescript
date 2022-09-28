@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import { selectUserData } from '../../redux/slices/user.slice';
-import { addNewTodo, getTodoList } from '../../utils/firebase/firebase';
+import { addNewTodo, deleteTodoById, getTodoList, removeAllTodos, updateTodoStatus, updateTodoText } from '../../utils/firebase/firebase';
 import { Todo, DateObject } from '../../types/types';
 
 import TodoItem from '../../components/todo-item/todo-item.component'
@@ -21,6 +21,11 @@ const MainPage = () => {
     const [inputTodo, setInputTodo] = useState('')
     const [todoList, setTodoList] = useState<Todo[]>([])
 
+    // handle key enter when user update todo text
+    const handleKeyDownOnUpdate = (id: string, text: string ): void => {
+        saveEditedElement(id, text)
+    }
+
     // handle create todo after click on Enter
     const handleKeyDown = (event: KeyboardEvent<HTMLImageElement>): void => {
         if (event.key === 'Enter') {
@@ -29,18 +34,14 @@ const MainPage = () => {
     }
 
     // Function saved updated todo into localStorage
-    const saveEditedElement = (id: string, text: string): void => {
-        let localStorageTodos: Todo[] = []
-
-        try {
-            const currentTodos = JSON.parse(localStorage.getItem('todos') || "")
-            const newTodos = currentTodos.map((todo: Todo) => todo.id === id ? {...todo, text} : todo)
-            localStorageTodos = [...newTodos]
-        } catch (e) {}
-
-        localStorage.setItem('todos', JSON.stringify(localStorageTodos))
-        setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
+    const saveEditedElement = async (id: string, text: string): Promise<void> => {
+        await updateTodoText(userData.id, id, text)
         setEditElement('')
+
+        const res = await getTodoList(userData.id)
+        if (res) {
+            setTodoList(res)
+        }
     }  
 
     // Set id of editable element
@@ -48,40 +49,34 @@ const MainPage = () => {
         setEditElement(id)
     }
 
-    // Function used for remvoe all todos list
-    const clearAllTodos = (): void => {
-        let localStorageTodos: Todo[] = []
+    // Function used for remove all todos list
+    const clearAllTodos = async (): Promise<void> => {
+        await removeAllTodos(userData.id)
 
-        localStorage.setItem('todos', JSON.stringify(localStorageTodos))
-        setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
+        const res = await getTodoList(userData.id)
+        if (res) {
+            setTodoList(res)
+        }
     }
 
     // Function used for delete separate todo
-    const deleteTodo = (id: string): void => {
-        let localStorageTodos: Todo[] = []
+    const deleteTodo = async (id: string): Promise<void> => {
+        await deleteTodoById(userData.id, id)
 
-        try {
-            const currentTodos = JSON.parse(localStorage.getItem('todos') || "")
-            const filteredTodos = currentTodos.filter((todo: Todo) => todo.id !== id)
-            localStorageTodos = [...filteredTodos]
-        } catch (e) {}
-
-        localStorage.setItem('todos', JSON.stringify(localStorageTodos))
-        setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
+        const res = await getTodoList(userData.id)
+        if (res) {
+            setTodoList(res)
+        }
     }
 
     // Function used for update status of todo
-    const updateStatus = (id: string, status: string): void => {
-        let localStorageTodos: Todo[] = []
+    const updateStatus = async (id: string, status: string): Promise<void> => {
+        await updateTodoStatus(userData.id, id, status)
 
-        try {
-            const currentTodos = JSON.parse(localStorage.getItem('todos') || "")
-            const updatedTodos = currentTodos.map((todo: Todo) => todo.id === id ? {...todo, status} : todo)
-            localStorageTodos = [...updatedTodos]
-        } catch (e) {}
-
-        localStorage.setItem('todos', JSON.stringify(localStorageTodos))
-        setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
+        const res = await getTodoList(userData.id)
+        if (res) {
+            setTodoList(res)
+        }
     }
  
     // Handle input for new todos
@@ -90,7 +85,7 @@ const MainPage = () => {
     } 
 
     // Create new todo function
-    const createTodoHandler = (): void => {
+    const createTodoHandler = async (): Promise<void> => {
         const todoObject = {
             id: uuidv4(),
             text: inputTodo,
@@ -98,7 +93,13 @@ const MainPage = () => {
         }
 
         if (inputTodo.length > 0) {
-            addNewTodo(userData.id, todoObject)
+            await addNewTodo(userData.id, todoObject)
+            setInputTodo('')
+
+            const res = await getTodoList(userData.id)
+            if (res) {
+                setTodoList(res)
+            }
         }
     }
  
@@ -154,7 +155,7 @@ const MainPage = () => {
                             <>
                                 {
                                     todoList.slice().reverse().map((todo: Todo) => (
-                                        <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} updateStatus={updateStatus} editElement={editElement} saveEditedElement={saveEditedElement} setEditElementHandler={setEditElementHandler} />
+                                        <TodoItem key={todo.id} todo={todo} handleKeyDownOnUpdate={handleKeyDownOnUpdate} deleteTodo={deleteTodo} updateStatus={updateStatus} editElement={editElement} saveEditedElement={saveEditedElement} setEditElementHandler={setEditElementHandler} />
                                     ))
                                 }
                             </> :

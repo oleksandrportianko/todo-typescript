@@ -85,7 +85,7 @@ export const addNewTodo = async (userId: string, todo: Todo): Promise<void> => {
     await setDoc(docRef, updatedUserData)
 }
 
-// Function fore receive list of user todos
+// Function for receive list of user todos
 export const getTodoList = async (userId: string): Promise<Todo[] | undefined> => {
     if (!userId) return
     const docRef = doc(db, "users", userId);
@@ -93,4 +93,58 @@ export const getTodoList = async (userId: string): Promise<Todo[] | undefined> =
     const userData = docSnap.data()
 
     return userData?.todos
+}
+
+// Function for remove all user todos
+export const removeAllTodos = async (userId: string): Promise<void> => {
+    if (!userId) return
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
+    const userData = docSnap.data()
+
+    const updatedUserData = {...userData, todos: []}
+
+    await setDoc(docRef, updatedUserData)
+}
+
+// Function used for delete user todo by id
+export const deleteTodoById = async (userId: string, todoId: string): Promise<void> => {
+    if (!userId) return
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
+    const userData = docSnap.data()
+
+    const updatedListTodos = userData?.todos.filter((todo: Todo) => todo.id !== todoId)
+
+    const updatedUserData = {...userData, todos: updatedListTodos}
+
+    await setDoc(docRef, updatedUserData)
+}
+
+// This fucntion used for update status of todo: active or done
+export const updateTodoStatus = async (userId: string, todoId: string, status: string): Promise<void> => {
+    if (!userId) return
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
+    const userData = docSnap.data()
+
+    const updatedListTodos = userData?.todos.map((todo: Todo) => todo.id === todoId ? {...todo, status} : todo)
+
+    const updatedUserData = {...userData, todos: updatedListTodos}
+
+    await setDoc(docRef, updatedUserData)
+}
+
+// This function used for update text of the todo
+export const updateTodoText = async (userId: string, todoId: string, text: string): Promise<void> => {
+    if (!userId) return
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
+    const userData = docSnap.data()
+
+    const updatedListTodos = userData?.todos.map((todo: Todo) => todo.id === todoId ? {...todo, text} : todo)
+
+    const updatedUserData = {...userData, todos: updatedListTodos}
+
+    await setDoc(docRef, updatedUserData)
 }
