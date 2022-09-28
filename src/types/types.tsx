@@ -18,3 +18,15 @@ export type DateObject = {
     month: string,
     weekDay: string,
 }
+
+export type User = {
+    id: string,
+    displayName: string,
+    email: string,
+}
+
+export type FirebaseUser = {
+    uid: string,
+    displayName: string,
+    email: string,
+}
