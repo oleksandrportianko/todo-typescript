@@ -1,6 +1,9 @@
 import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react' 
+import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
+import { selectUserData } from '../../redux/slices/user.slice';
+import { addNewTodo, getTodoList } from '../../utils/firebase/firebase';
 import { Todo, DateObject } from '../../types/types';
 
 import TodoItem from '../../components/todo-item/todo-item.component'
@@ -12,6 +15,7 @@ import { ButtonCreateTodoImage, ClearAllButton, CountOfTasks, CreateTodoBlock, D
     TodosBlock, TodosBody, TodosHeader, TodosListWrapper, WeekDayBlock } from './main.styles'
 
 const MainPage = () => {
+    const userData = useSelector(selectUserData)
     const [currentDate, setCurrentDate] = useState<DateObject>({day: '', month: '', weekDay: ''})
     const [editElement, setEditElement] = useState('')
     const [inputTodo, setInputTodo] = useState('')
@@ -87,52 +91,44 @@ const MainPage = () => {
 
     // Create new todo function
     const createTodoHandler = (): void => {
+        const todoObject = {
+            id: uuidv4(),
+            text: inputTodo,
+            status: 'active',
+        }
+
         if (inputTodo.length > 0) {
-            let localStorageTodos: Todo[] = []
-    
-            try {
-                const currentTodos = JSON.parse(localStorage.getItem('todos') || "")
-                localStorageTodos = [...currentTodos]
-            } catch (e) {}
-    
-            const todoObject = {
-                id: uuidv4(),
-                text: inputTodo,
-                status: 'active',
-            }
-    
-            const newTodosList = [...localStorageTodos, todoObject]
-            localStorage.setItem('todos', JSON.stringify(newTodosList))
-    
-            setTodoList(JSON.parse(localStorage.getItem('todos') || ""))
-            setInputTodo('')
+            addNewTodo(userData.id, todoObject)
         }
     }
  
     // useEffect used for set data information at the beginning
-    // also set existing todos 
+    // also set existing todos after extracting from firebase doc
     useEffect(() => {
-        let localStorageTodos: Todo[] = []
         const day = new Date().toLocaleDateString().split('/')[1]
         const month = new Date().toLocaleString('default', { month: 'long' })
         const weekDay = new Date().toLocaleString('en-us', {  weekday: 'long' })
-        
-        try {
-            const currentTodos = JSON.parse(localStorage.getItem('todos') || "")
-            localStorageTodos = [...currentTodos]
-        } catch (e) {}
+
+        const getTodos = async () => {
+            const res = await getTodoList(userData.id)
+            if (res) {
+                setTodoList(res)
+            }
+        } 
+
+        if (userData.id) {
+            getTodos()
+        }
         
         setCurrentDate({
             day: day,
             month: month,
             weekDay: weekDay,
         })
-        setTodoList(localStorageTodos)
-    }, [])
+    }, [userData])
 
     return (
         <MainPageContainer>
-            
             <TodosBlock>
                 <TodosHeader>
                     <HeaderDateBlock>

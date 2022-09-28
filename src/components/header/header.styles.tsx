@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import { todosBackground } from '../../styles'
+import { lightColor } from '../../styles'
 
 export const HeaderContainer = styled.header`
     width: 100%;
-    background-color: #183a6c;
-    color: ${todosBackground};
+    background-color: #002965;
+    color: ${lightColor};
     display: flex;
     justify-content: space-between;
     padding: 15px 0;
@@ -15,7 +15,7 @@ export const HeaderText = styled.span`
     font-size: 1.5rem;
     font-weight: 500;
     text-transform: uppercase;
-    color: ${todosBackground};
+    color: ${lightColor};
     margin-left: 20px;
 `
 

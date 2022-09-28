@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 
+import { lightColor } from '../../styles'
+
 export const LogoutButtonHeader = styled.button`
     border: none;
     width: 40px;
     height: 40px;
-    background-color: white;
+    background-color: ${lightColor};
     transition: 0.5s;
     margin-right: 20px;
     cursor: pointer;

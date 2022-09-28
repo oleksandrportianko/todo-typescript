@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 
+import { lightColor } from '../../styles'
+
 export const GoogleLoginButton = styled.button`
     min-width: 200px;
     height: 40px;
-    background-color: white;
+    background-color: ${lightColor};
     margin-right: 20px;
     display: flex;
     align-items: center;

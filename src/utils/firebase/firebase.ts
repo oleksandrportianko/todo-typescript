@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
 import { getDoc, doc, getFirestore, setDoc } from 'firebase/firestore'
 
-import { FirebaseUser } from './../../types/types';
+import { FirebaseUser, Todo } from './../../types/types';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBnCKjv9YDRc_XKPc6lxdhFkZJ3Uxq18Ak",
@@ -36,7 +36,6 @@ export const getCurrentUser = () => {
 // Function handler google sign in with popup
 export const googleSignInWithPopup = async () => signInWithPopup(auth, provider)
 
-
 // Sign out handler function
 export const signOutHandle = () => {
     signOut(auth).then((res) => {
@@ -55,6 +54,7 @@ export const createUser = async (user: FirebaseUser): Promise<void> => {
             id: user.uid,
             displayname: user.displayName,
             email: user.email,
+            todos: []
         });
     } catch (error) {
         console.log("Error adding document: ", error);
@@ -69,4 +69,28 @@ export const handleUserAfterLogin = async (user: FirebaseUser) => {
     if (!docSnap.exists()) {
         createUser(user)
     }
+}
+
+// Function for append new todo to the firebase doc
+export const addNewTodo = async (userId: string, todo: Todo): Promise<void> => {
+    if (!userId) return
+
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
+    const userData = docSnap.data()
+
+    const updatedTodoList = [...userData?.todos, todo]
+    const updatedUserData = {...userData, todos: updatedTodoList}
+
+    await setDoc(docRef, updatedUserData)
+}
+
+// Function fore receive list of user todos
+export const getTodoList = async (userId: string): Promise<Todo[] | undefined> => {
+    if (!userId) return
+    const docRef = doc(db, "users", userId);
+    const docSnap = await getDoc(docRef);
+    const userData = docSnap.data()
+
+    return userData?.todos
 }
