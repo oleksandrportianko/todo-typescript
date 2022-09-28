@@ -132,7 +132,7 @@ export const EmptyTasksText = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${lightColor}
+    color: ${lightColor};
 `
 
 export const TodosListWrapper = styled.div`
@@ -155,4 +155,17 @@ export const TodosListWrapper = styled.div`
     ::-webkit-scrollbar-thumb:hover {
         background: transparent;
     }
+`
+
+export const LoaderWrapper = styled.div`
+    max-height: 354px;
+    padding: 0 0 20px 0;
+    min-height: 354px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+export const LoaderGif = styled.img`
+    height: 80px;
 `
