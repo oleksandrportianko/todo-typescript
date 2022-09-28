@@ -6,6 +6,8 @@ export const textColor = '#435863'
 export const lightColor = '#a1b6ba' 
 export const underlineColor = '#f5f1eb'
 export const redColor = '#da3636'
+export const authButtonBackground = '#3d629e'
+export const authButtonBackgroundHover =  '#28477a'
 
 export const AppWrapper = styled.div`
     width: 100%;

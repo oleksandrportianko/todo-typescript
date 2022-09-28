@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
-import { lightColor } from '../../styles'
+import { authButtonBackground, todosBackground, authButtonBackgroundHover } from '../../styles'
 
 export const GoogleLoginButton = styled.button`
     min-width: 200px;
     height: 40px;
-    background-color: ${lightColor};
+    background-color: ${authButtonBackground};
     display: flex;
     align-items: center;
     border: none;
@@ -13,10 +13,11 @@ export const GoogleLoginButton = styled.button`
     cursor: pointer;
     border-radius: 5px;
     margin-top: 20px;
+    color: ${todosBackground};
 
     &:hover {
         transition: 0.5s;
-        background-color: #dbe4f2;
+        background-color: ${authButtonBackgroundHover};
     }
 `
 
