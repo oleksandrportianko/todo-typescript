@@ -3,13 +3,15 @@ import { useDispatch } from 'react-redux'
 import { setUserData } from '../../redux/slices/user.slice'
 import { signOutHandle } from '../../utils/firebase/firebase'
 
-import { LogoutButtonHeader } from './logout-button.styles'
+import logoutSvg from '../../assets/logout.svg'
+
+import { LogoutButtonHeader, LogoutImage } from './logout-button.styles'
 
 const LogoutButton = () => {
     const dispatch = useDispatch()
     
-    // Handle user logout, we call firebase logout
-    // after logout setting empty user data
+    // Handle user logout, firstly call firebase logout method
+    // after logout set empty user data
     const logoutHandler = async (): Promise<void> => {
         try {
             await signOutHandle()
@@ -21,7 +23,7 @@ const LogoutButton = () => {
 
     return (
         <LogoutButtonHeader onClick={logoutHandler}>
-            Log out
+            <LogoutImage src={logoutSvg} />
         </LogoutButtonHeader>
     )
 }

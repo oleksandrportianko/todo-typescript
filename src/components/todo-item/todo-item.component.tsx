@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, KeyboardEvent } from 'react'
 
 import { TodoProps } from '../../types/types'
 
@@ -11,8 +11,15 @@ import editSvg from '../../assets/edit.svg'
 import { BlockImagesTodo, DeleteImageTodo, DoneImageTodo, EditImageTodo, EditInput, ResetImageTodo, TextTodoWrapper, TodoContainer, TodoTextBlock } from './todo-item.styles'
 
 const TodoItem = (props: TodoProps) => {
-    const { todo: { id, text, status }, deleteTodo, updateStatus, editElement, setEditElementHandler, saveEditedElement } = props;
+    const { todo: { id, text, status }, deleteTodo, updateStatus, editElement, setEditElementHandler, saveEditedElement, handleKeyDownOnUpdate } = props;
     const [editableText, setEditableText] = useState(text)
+
+    // Call handle function when user updating todo text and pressed enter 
+    const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            handleKeyDownOnUpdate(id, editableText)
+        }
+    }
 
     // Set to useState current editable value
     const editTextHandler = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -40,7 +47,7 @@ const TodoItem = (props: TodoProps) => {
                 { 
                     editElement === id ? 
                     <>
-                        <EditInput value={editableText} onChange={editTextHandler} />
+                        <EditInput value={editableText} onChange={editTextHandler} onKeyDown={handleKeyDown} />
                     </> :
                     <>
                         <TodoTextBlock className={status === 'done' ? 'done' : ''}>

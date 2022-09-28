@@ -11,6 +11,7 @@ export type TodoProps = {
     editElement: string,
     setEditElementHandler: (id: string) => void,
     saveEditedElement: (id: string, text: string) => void,
+    handleKeyDownOnUpdate: (id: string, text: string) => void,
 }
 
 export type DateObject = {

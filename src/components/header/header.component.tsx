@@ -5,7 +5,7 @@ import LogoutButton from '../logout-button/logout-button.component';
 
 import { selectUserData } from '../../redux/slices/user.slice';
 
-import { HeaderContainer, HeaderText, UserName } from './header.styles'
+import { HeaderContainer, HeaderText, UserName, LogginedUserBlockHeader } from './header.styles'
 
 const Header = () => {
     const userData = useSelector(selectUserData)
@@ -15,10 +15,10 @@ const Header = () => {
             <HeaderText>TODO List</HeaderText>
             {userData.displayName
                 ? (
-                    <>
+                    <LogginedUserBlockHeader>
                         <UserName>{userData.displayName}</UserName>
                         <LogoutButton />
-                    </>
+                    </LogginedUserBlockHeader>
                 )
                 : (<GoogleLogin />)
             }

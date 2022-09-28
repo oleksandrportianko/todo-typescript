@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import { todosBackground } from '../../styles'
+import { lightColor } from '../../styles'
 
 export const HeaderContainer = styled.header`
     width: 100%;
-    background-color: #0B2346;
-    color: ${todosBackground};
+    background-color: #002965;
+    color: ${lightColor};
     display: flex;
     justify-content: space-between;
     padding: 15px 0;
@@ -15,12 +15,17 @@ export const HeaderText = styled.span`
     font-size: 1.5rem;
     font-weight: 500;
     text-transform: uppercase;
-    color: ${todosBackground};
+    color: ${lightColor};
     margin-left: 20px;
 `
 
 export const UserName = styled.span`
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 500;
     margin-right: 20px;
+`
+
+export const LogginedUserBlockHeader = styled.section`
+    display: flex;
+    align-items: center;
 `
