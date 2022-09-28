@@ -6,13 +6,13 @@ export const GoogleLoginButton = styled.button`
     min-width: 200px;
     height: 40px;
     background-color: ${lightColor};
-    margin-right: 20px;
     display: flex;
     align-items: center;
     border: none;
     transition: 0.5s;
     cursor: pointer;
     border-radius: 5px;
+    margin-top: 20px;
 
     &:hover {
         transition: 0.5s;
