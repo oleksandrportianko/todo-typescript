@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
 
 import MainPage from './pages/main/main.page'
-import Header from './components/header/header.component'
 
 import { getCurrentUser } from './utils/firebase/firebase'
 import { FirebaseUser } from './types/types'
@@ -30,7 +29,6 @@ function App() {
 
   return (
     <AppWrapper>
-      <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />
       </Routes>

@@ -7,14 +7,16 @@ import { addNewTodo, deleteTodoById, getTodoList, removeAllTodos, updateTodoStat
 import { Todo, DateObject } from '../../types/types';
 
 import TodoItem from '../../components/todo-item/todo-item.component'
+import GoogleLogin from '../../components/google-login/google-login.component';
+import LogoutButton from '../../components/logout-button/logout-button.component';
 
 import loaderGif from '../../assets/loader.gif'
 import plusSvg from '../../assets/plus.svg'
 
 import {
-    ButtonCreateTodoImage, ClearAllButton, CountOfTasks, CreateTodoBlock, DateBlock,
+    ButtonCreateTodoImage, ClearAllButton, CountOfTasks, CreateTodoBlock, DateBlock, LoginBlock,
     EmptyTasksText, HeaderAdditionalInfo, HeaderDateBlock, LoaderGif, MainPageContainer, MonthBlock, TodayDateBlock, TodoInputCreate,
-    TodosBlock, TodosBody, TodosHeader, TodosListWrapper, WeekDayBlock, LoaderWrapper
+    TodosBlock, TodosBody, TodosHeader, TodosListWrapper, WeekDayBlock, LoaderWrapper, PleaseLoginText
 } from './main.styles'
 
 const MainPage = () => {
@@ -137,7 +139,7 @@ const MainPage = () => {
         const month = new Date().toLocaleString('default', { month: 'long' })
         const weekDay = new Date().toLocaleString('en-us', { weekday: 'long' })
 
-        
+
         const getTodos = async () => {
             handleIsLoadingStatus(true)
 
@@ -162,48 +164,58 @@ const MainPage = () => {
 
     return (
         <MainPageContainer>
-            <TodosBlock>
-                <TodosHeader>
-                    <HeaderDateBlock>
-                        <TodayDateBlock>
-                            <WeekDayBlock>{currentDate.weekDay},</WeekDayBlock>
-                            <DateBlock>{currentDate.day}th</DateBlock>
-                        </TodayDateBlock>
-                        <MonthBlock>{currentDate.month}</MonthBlock>
-                    </HeaderDateBlock>
-                    <HeaderAdditionalInfo>
-                        <CountOfTasks>{(todoList.length === 0 || todoList.length === 1) ? `${todoList.length} task` : `${todoList.length} tasks`}</CountOfTasks>
-                        <ClearAllButton onClick={clearAllTodos}>Clear list</ClearAllButton>
-                    </HeaderAdditionalInfo>
-                </TodosHeader>
-                <TodosBody>
-                    <CreateTodoBlock onKeyDown={handleKeyDown}>
-                        <ButtonCreateTodoImage src={plusSvg} onClick={createTodoHandler} />
-                        <TodoInputCreate placeholder='Type your task' type='text' value={inputTodo} onChange={todoInputHandler} />
-                    </CreateTodoBlock>
-                    {
-                        isLoading
-                            ? (<LoaderWrapper>
-                                <LoaderGif src={loaderGif} />
-                            </LoaderWrapper>)
-                            : (<TodosListWrapper>
-                                {
-                                    todoList.length > 0 ?
-                                        <>
-                                            {
-                                                todoList.slice().reverse().map((todo: Todo) => (
-                                                    <TodoItem key={todo.id} todo={todo} handleKeyDownOnUpdate={handleKeyDownOnUpdate} deleteTodo={deleteTodo} updateStatus={updateStatus} editElement={editElement} saveEditedElement={saveEditedElement} setEditElementHandler={setEditElementHandler} />
-                                                ))
-                                            }
-                                        </> :
-                                        <EmptyTasksText>
-                                            You don`t have tasks yet!
-                                        </EmptyTasksText>
-                                }
-                            </TodosListWrapper>)
-                    }
-                </TodosBody>
-            </TodosBlock>
+            {
+                !userData.id
+                    ? (<LoginBlock>
+                        <PleaseLoginText>
+                            Please login to manage your tasks
+                        </PleaseLoginText>
+                        <GoogleLogin />
+                    </LoginBlock>)
+                    : (<TodosBlock>
+                        <LogoutButton />
+                        <TodosHeader>
+                            <HeaderDateBlock>
+                                <TodayDateBlock>
+                                    <WeekDayBlock>{currentDate.weekDay},</WeekDayBlock>
+                                    <DateBlock>{currentDate.day}th</DateBlock>
+                                </TodayDateBlock>
+                                <MonthBlock>{currentDate.month}</MonthBlock>
+                            </HeaderDateBlock>
+                            <HeaderAdditionalInfo>
+                                <CountOfTasks>{(todoList.length === 0 || todoList.length === 1) ? `${todoList.length} task` : `${todoList.length} tasks`}</CountOfTasks>
+                                <ClearAllButton onClick={clearAllTodos}>Clear list</ClearAllButton>
+                            </HeaderAdditionalInfo>
+                        </TodosHeader>
+                        <TodosBody>
+                            <CreateTodoBlock onKeyDown={handleKeyDown}>
+                                <ButtonCreateTodoImage src={plusSvg} onClick={createTodoHandler} />
+                                <TodoInputCreate placeholder='Type your task' type='text' value={inputTodo} onChange={todoInputHandler} />
+                            </CreateTodoBlock>
+                            {
+                                isLoading
+                                    ? (<LoaderWrapper>
+                                        <LoaderGif src={loaderGif} />
+                                    </LoaderWrapper>)
+                                    : (<TodosListWrapper>
+                                        {
+                                            todoList.length > 0 ?
+                                                <>
+                                                    {
+                                                        todoList.slice().reverse().map((todo: Todo) => (
+                                                            <TodoItem key={todo.id} todo={todo} handleKeyDownOnUpdate={handleKeyDownOnUpdate} deleteTodo={deleteTodo} updateStatus={updateStatus} editElement={editElement} saveEditedElement={saveEditedElement} setEditElementHandler={setEditElementHandler} />
+                                                        ))
+                                                    }
+                                                </> :
+                                                <EmptyTasksText>
+                                                    You don`t have tasks yet!
+                                                </EmptyTasksText>
+                                        }
+                                    </TodosListWrapper>)
+                            }
+                        </TodosBody>
+                    </TodosBlock>)
+            }
         </MainPageContainer>
     )
 }
