@@ -25,6 +25,6 @@ export const GoogleIcon = styled.img`
 
 export const GoogleButtonText = styled.span`
     margin-left: 10px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 500;
 `

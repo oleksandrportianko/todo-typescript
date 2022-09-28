@@ -3,7 +3,7 @@ import { todosBackground } from '../../styles'
 
 export const HeaderContainer = styled.header`
     width: 100%;
-    background-color: #0B2346;
+    background-color: #183a6c;
     color: ${todosBackground};
     display: flex;
     justify-content: space-between;
@@ -20,7 +20,12 @@ export const HeaderText = styled.span`
 `
 
 export const UserName = styled.span`
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 500;
     margin-right: 20px;
+`
+
+export const LogginedUserBlockHeader = styled.section`
+    display: flex;
+    align-items: center;
 `
