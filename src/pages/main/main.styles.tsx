@@ -132,7 +132,7 @@ export const EmptyTasksText = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    color: ${lightColor}
+    color: ${lightColor};
 `
 
 export const TodosListWrapper = styled.div`
@@ -155,4 +155,36 @@ export const TodosListWrapper = styled.div`
     ::-webkit-scrollbar-thumb:hover {
         background: transparent;
     }
+`
+
+export const LoaderWrapper = styled.div`
+    max-height: 354px;
+    padding: 0 0 20px 0;
+    min-height: 354px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+export const LoaderGif = styled.img`
+    height: 80px;
+`
+
+export const LoginBlock = styled.div`
+    max-width: 400px;
+    min-height: 550px;
+    max-height: 550px;
+    width: 100%;
+    border-radius: 15px;
+    background-color: ${todosBackground};
+    box-shadow: 0px 0px 10px 10px #14147e21;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+
+export const PleaseLoginText = styled.span`
+    font-size: 1.2rem;
+    text-align: center;
 `
