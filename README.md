@@ -17,4 +17,4 @@ Example:\
   REACT_APP_PROJECT_ID = 'fdsgfdsgfdsgdsfgsdfgfdsgdsfg'\
   REACT_APP_STORAGE_BUCKET = 'tfdsgfdsgfdsgdsfgsdfgfdsgdsfg'\
   REACT_APP_MESSAGING_SENDER_ID = 'fdsgfdsgfdsgdsfgsdfgfdsgdsfg'\
-  REACT_APP_APP_ID = 'fdsgfdsgfdsgdsfgsdfgfdsgdsfg'\
+  REACT_APP_APP_ID = 'fdsgfdsgfdsgdsfgsdfgfdsgdsfg'
