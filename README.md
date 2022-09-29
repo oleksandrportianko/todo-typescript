@@ -11,7 +11,7 @@ Runs the app in the development mode
 
 ### setup .env file
 
-Example:
+Example:\
   REACT_APP_API_KEY = '**********************************'\
   REACT_APP_AUT_DOMAIN = '*****************************'\
   REACT_APP_PROJECT_ID = '*****************'\
