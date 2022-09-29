@@ -4,27 +4,14 @@ import { getDoc, doc, getFirestore, setDoc } from 'firebase/firestore'
 
 import { FirebaseUser, Todo } from './../../types/types';
 
-let firebaseConfig
-
-if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-    firebaseConfig = {
-        apiKey: "AIzaSyBnCKjv9YDRc_XKPc6lxdhFkZJ3Uxq18Ak",
-        authDomain: "todo-list-31b84.firebaseapp.com",
-        projectId: "todo-list-31b84",
-        storageBucket: "todo-list-31b84.appspot.com",
-        messagingSenderId: "676913797576",
-        appId: "1:676913797576:web:de40dd233c27fca827c8fd"
-    };
-} else {
-    firebaseConfig = {
-        apiKey: "AIzaSyDuQYIgvM9ZIUg-4yxGhtH_sN_mNEyIb1g",
-        authDomain: "todo-list-production-407d3.firebaseapp.com",
-        projectId: "todo-list-production-407d3",
-        storageBucket: "todo-list-production-407d3.appspot.com",
-        messagingSenderId: "740472867371",
-        appId: "1:740472867371:web:bcbe5252a373e339c6386e"
-    };
-}
+const firebaseConfig = {
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUT_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+};
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
