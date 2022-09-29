@@ -12,9 +12,9 @@ Runs the app in the development mode
 ### setup .env file
 
 Example:
-  REACT_APP_API_KEY = '**********************************'
-  REACT_APP_AUT_DOMAIN = '*****************************'
-  REACT_APP_PROJECT_ID = '*****************'
-  REACT_APP_STORAGE_BUCKET = 't**************************'
-  REACT_APP_MESSAGING_SENDER_ID = '*************'
-  REACT_APP_APP_ID = '****************************************'
+  REACT_APP_API_KEY = '**********************************'\
+  REACT_APP_AUT_DOMAIN = '*****************************'\
+  REACT_APP_PROJECT_ID = '*****************'\
+  REACT_APP_STORAGE_BUCKET = 't**************************'\
+  REACT_APP_MESSAGING_SENDER_ID = '*************'\
+  REACT_APP_APP_ID = '****************************************'\
