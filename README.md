@@ -5,10 +5,17 @@
 You can use this for manage your daily tasks. Todo list provide posibility to add, delete, update, mark todoes like done or active. All data saved in firebase.
 
 ## How to start?
+
+## setup .env file
+
+Example:\
+  REACT_APP_API_KEY = 'fdsgfdsgfdsgdsfgsdfgfdsgdsfg'\
+  REACT_APP_AUT_DOMAIN = 'fdsgfdsgfdsgdsfgsdfgfdsgdsfg'\
+  REACT_APP_PROJECT_ID = 'fdsgfdsgfdsgdsfgsdfgfdsgdsfg'\
+  REACT_APP_STORAGE_BUCKET = 'tfdsgfdsgfdsgdsfgsdfgfdsgdsfg'\
+  REACT_APP_MESSAGING_SENDER_ID = 'fdsgfdsgfdsgdsfgsdfgfdsgdsfg'\
+  REACT_APP_APP_ID = 'fdsgfdsgfdsgdsfgsdfgfdsgdsfg'
+
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Runs the app in the development mode
