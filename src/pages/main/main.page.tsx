@@ -164,6 +164,7 @@ const MainPage = () => {
 
     return (
         <MainPageContainer>
+            {userData.id && <LogoutButton />}
             {
                 !userData.id
                     ? (<LoginBlock>
@@ -173,7 +174,6 @@ const MainPage = () => {
                         <GoogleLogin />
                     </LoginBlock>)
                     : (<TodosBlock>
-                        <LogoutButton />
                         <TodosHeader>
                             <HeaderDateBlock>
                                 <TodayDateBlock>
