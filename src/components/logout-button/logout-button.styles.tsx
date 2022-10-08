@@ -29,3 +29,10 @@ export const LogoutImage = styled.img`
     height: 25px;
     filter: invert(100%) sepia(1%) saturate(1358%) hue-rotate(186deg) brightness(122%) contrast(100%);
 `
+
+export const LogoutButtonWrapper = styled.div`
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: end;
+`

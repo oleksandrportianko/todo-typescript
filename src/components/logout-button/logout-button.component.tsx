@@ -5,7 +5,7 @@ import { signOutHandle } from '../../utils/firebase/firebase'
 
 import logoutSvg from '../../assets/logout.svg'
 
-import { LogoutButtonHeader, LogoutImage } from './logout-button.styles'
+import { LogoutButtonHeader, LogoutButtonWrapper, LogoutImage } from './logout-button.styles'
 
 const LogoutButton = () => {
     const dispatch = useDispatch()
@@ -22,9 +22,11 @@ const LogoutButton = () => {
     } 
 
     return (
-        <LogoutButtonHeader onClick={logoutHandler}>
-            <LogoutImage src={logoutSvg} />
-        </LogoutButtonHeader>
+        <LogoutButtonWrapper>
+            <LogoutButtonHeader onClick={logoutHandler}>
+                <LogoutImage src={logoutSvg} />
+            </LogoutButtonHeader>
+        </LogoutButtonWrapper>
     )
 }
 
