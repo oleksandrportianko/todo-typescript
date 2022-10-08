@@ -32,7 +32,7 @@ export const LogoutImage = styled.img`
 
 export const LogoutButtonWrapper = styled.div`
     width: 100%;
-    height: 50px;
+    height: 80px;
     display: flex;
     justify-content: end;
 `
