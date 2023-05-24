@@ -1,6 +1,7 @@
 import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react'
 import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
+import ReactGA from 'react-ga'
 
 import { selectUserData } from '../../redux/slices/user.slice';
 import { addNewTodo, deleteTodoById, getTodoList, removeAllTodos, updateTodoStatus, updateTodoText } from '../../utils/firebase/firebase';
@@ -161,6 +162,10 @@ const MainPage = () => {
             weekDay: weekDay,
         })
     }, [userData])
+
+    useEffect(() => {
+        ReactGA.pageview(window.location.pathname + window.location.search);
+    }, [])
 
     return (
         <MainPageContainer>
